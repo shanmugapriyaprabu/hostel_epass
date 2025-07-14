@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="text-end mt-3">
+    <a href="{{ url_for('upload_excel') }}" class="btn btn-secondary">📤 Upload Students (Excel)</a>
+</div>
+
+<style>
+    .form-container {
+        max-width: 850px;
+        margin: 40px auto;
+        background-color: #fff;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    }
+
+    .form-title {
+        text-align: center;
+        font-size: 2rem;
+        font-weight: bold;
+        color: maroon;
+        margin-bottom: 30px;
+    }
+
+    .form-table {
+        width: 100%;
+    }
+
+    .form-table td {
+        padding: 15px 10px;
+        vertical-align: middle;
+    }
+
+    .form-label {
+        font-weight: 600;
+        width: 35%;
+        text-align: right;
+        padding-right: 20px;
+        white-space: nowrap;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px 14px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+    }
+
+    .btn-add {
+        background-color: maroon;
+        color: white;
+        padding: 12px 30px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        border: none;
+        border-radius: 8px;
+        transition: 0.3s;
+    }
+
+    .btn-add:hover {
+        background-color: #8b0000;
+    }
+</style>
+
+<div class="form-container">
+    <h2 class="form-title">➕ Add Student Details</h2>
+
+    {% if msg %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        ✅ {{ msg }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+
+    <form method="POST">
+        <table class="form-table">
+            <tr>
+                <td class="form-label">Register Number:</td>
+                <td><input type="text" name="reg_no" class="form-control" required></td>
+            </tr>
+            <tr>
+                <td class="form-label">Student Name:</td>
+                <td><input type="text" name="name" class="form-control" required></td>
+            </tr>
+            <tr>
+                <td class="form-label">Department:</td>
+                <td><input type="text" name="department" class="form-control" required></td>
+            </tr>
+            <tr>
+                <td class="form-label">Year:</td>
+                <td>
+                    <select name="year" class="form-control" required>
+                        <option value="">--Select--</option>
+                        <option value="First">First</option>
+                        <option value="Second">Second</option>
+                        <option value="Third">Third</option>
+                        <option value="Fourth">Fourth</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="form-label">Section:</td>
+                <td><input type="text" name="section" class="form-control" required></td>
+            </tr>
+            <tr>
+                <td class="form-label">Email ID:</td>
+                <td><input type="email" name="email" class="form-control" required></td>
+            </tr>
+            <tr>
+                <td class="form-label">Student Mobile:</td>
+                <td><input type="text" name="student_mobile" class="form-control" required></td>
+            </tr>
+            <tr>
+                <td class="form-label">Parent Mobile:</td>
+                <td><input type="text" name="parent_mobile" class="form-control" required></td>
+            </tr>
+            <tr>
+                <td class="form-label">Password:</td>
+                <td><input type="text" name="password" class="form-control" required></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><button type="submit" class="btn btn-add mt-3">➕ Add Student</button></td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+{% endblock %}

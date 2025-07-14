@@ -1,0 +1,11 @@
+¦   +-- base.html                 # Base layout (header, nav, footer)
+¦   +-- home.html                 # Home page with 3 buttons
+¦   +-- admin_login.html          # Admin login form
+¦   +-- admin_dashboard.html      # ePass request approval dashboard
+¦   +-- add_student.html          # Form to add a student
+¦   +-- edit_student.html         # Form to edit student
+¦   +-- students_list.html        # List of students with edit/delete options
+¦   +-- student_login.html        # Student login
+¦   +-- student_dashboard.html    # After student logs in
+¦   +-- apply_epass.html          # Form to apply for ePass
+¦   +-- status.html

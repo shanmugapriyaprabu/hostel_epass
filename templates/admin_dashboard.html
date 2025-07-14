@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    .dashboard-title {
+        color: maroon;
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        text-align: left;
+    }
+
+    .table-wrapper {
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.95rem;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f5f5f5;
+        color: #333;
+        font-weight: 600;
+    }
+
+    tr:nth-child(even) {
+        background-color: #fafafa;
+    }
+
+    .btn-action {
+        font-size: 0.85rem;
+        padding: 6px 12px;
+        border: none;
+        border-radius: 4px;
+        margin-right: 5px;
+        transition: 0.2s ease;
+    }
+
+    .btn-approve {
+        background-color: #28a745;
+        color: white;
+    }
+
+    .btn-approve:hover {
+        background-color: #218838;
+    }
+
+    .btn-reject {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .btn-reject:hover {
+        background-color: #c82333;
+    }
+</style>
+
+<div class="container mt-4">
+    <h2 class="dashboard-title">ePass Applications Dashboard</h2>
+    <div class="table-wrapper">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Register No</th>
+                    <th>Name</th>
+                    <th>Year</th>
+                    <th>Department</th>
+                    <th>Room No</th>
+                    <th>Leave Type</th>
+                    <th>Staring Date</th>
+                    <th>Ending Date</th>
+                    <th>Days</th>
+                    <th>Status</th>
+                    <th style="min-width: 160px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+        {% for app in apps %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ app[1] }}</td> <!-- Register No -->
+            <td>{{ app[2] }}</td> <!-- Name -->
+            <td>{{ app[3] }}</td> <!-- Year -->
+            <td>{{ app[4] }}</td> <!-- Department -->
+            <td>{{ app[5] }}</td> <!-- Room No -->
+            <td>{{ app[6] }}</td> <!-- Leave Type -->
+
+            <!-- Start Date -->
+            <td>
+            {% if app[6] == 'Outing' %}
+                {{ app[8] or '-' }}
+            {% else %}
+                {{ app[9] or '-' }}
+            {% endif %}
+            </td>
+
+            <!-- Time / End Date -->
+            <td>
+            {% if app[6] == 'Outing' %}
+                {{ app[8] or '-' }} <!-- Time -->
+            {% else %}
+                {{ app[10] or '-' }} <!-- Leave To -->
+            {% endif %}
+            </td>
+
+            <!-- Days (only for Leave) -->
+            <td>
+            {% if app[6] == 'Leave' %}
+                {{ app[11] or '-' }}
+            {% else %}
+                -
+            {% endif %}
+            </td>
+
+            
+
+            <td>
+            {% if app[12] == 'Pending' %}
+                <span class="badge bg-warning text-dark">Pending</span>
+            {% elif app[12] == 'Approved' %}
+                <span class="badge bg-success">Approved</span>
+            {% elif app[12] == 'Rejected' %}
+                <span class="badge bg-danger">Rejected</span>
+            {% endif %}
+            </td>
+
+            <td>
+            {% if app[12] == 'Pending' %}
+                <a href="{{ url_for('approve', appid=app[0]) }}" class="btn btn-sm btn-success">Approve</a>
+                <a href="{{ url_for('reject', appid=app[0]) }}" class="btn btn-sm btn-danger">Reject</a>
+            {% else %}
+                —
+            {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+
+                </table>
+            </div>
+        </div>
+
+{% endblock %}

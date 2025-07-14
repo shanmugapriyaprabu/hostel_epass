@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hostel ePass - Mahendra College of Engineering</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color-light: #f8f9fa;
+      --text-color-light: #212529;
+      --bg-color-dark: #121212;
+      --text-color-dark: #f8f9fa;
+    }
+
+    body.light-mode {
+      background-color: var(--bg-color-light);
+      color: var(--text-color-light);
+    }
+
+    body.dark-mode {
+      background-color: var(--bg-color-dark);
+      color: var(--text-color-dark);
+    }
+
+    .navbar {
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .nav-link {
+      margin-left: 15px;
+      font-weight: 500;
+    }
+
+    .nav-link:hover {
+      color: maroon !important;
+    }
+
+    .main-title {
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: maroon;
+    }
+    .main-title1 {
+      font-size: 2rem;
+      font-weight: bold;
+      color: rgb(2, 82, 15);
+    }
+    .sub-title {
+      font-size: 1rem;
+      color: #777;
+    }
+
+    .theme-toggle-btn {
+      border: none;
+      background: transparent;
+      font-size: 1.2rem;
+      color: inherit;
+    }
+
+    .theme-toggle-btn:hover {
+      color: maroon;
+    }
+  </style>
+</head>
+<body class="light-mode">
+
+<!-- Header -->
+<div class="text-center my-3">
+  <img src="{{ url_for('static', filename='logo.png') }}" alt="Mahendra Logo" style="height: 80px;">
+  <h1 class="main-title mt-2">Mahendra College of Engineering</h1>
+  <p class="sub-title">Affiliated to Anna University | Approved by AICTE | Salem Campus</p>
+  <h2 class="main-title1 mt-2">Hostel epass management</h2>
+</div>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg bg-white">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="{{ url_for('home') }}">
+      <i class="bi bi-house-fill"></i> Home
+    </a>
+    <div class="d-flex align-items-center ms-auto">
+      {% if session.get('admin_logged_in') %}
+        <a class="nav-link text-dark" href="{{ url_for('admin_dashboard') }}">Dashboard</a>
+        <a class="nav-link text-dark" href="{{ url_for('add_student') }}">Add Student</a>
+        <a class="nav-link text-dark" href="{{ url_for('students_list') }}">Student List</a>
+        <a class="nav-link text-dark" href="{{ url_for('admin_logout') }}">Logout</a>
+      {% elif session.get('reg_no') %}
+        <a class="nav-link text-dark" href="{{ url_for('student_dashboard') }}">Dashboard</a>
+        <a class="nav-link text-dark" href="{{ url_for('apply_epass') }}">Apply ePass</a>
+        <a class="nav-link text-dark" href="{{ url_for('check_status') }}">Check Status</a>
+        <a class="nav-link text-dark" href="{{ url_for('student_logout') }}">Logout</a>
+      {% else %}
+        <a class="nav-link text-dark" href="{{ url_for('student_login') }}">Student Login</a>
+        <a class="nav-link text-dark" href="{{ url_for('admin_login') }}">Admin Login</a>
+      {% endif %}
+      <button class="theme-toggle-btn ms-3" onclick="toggleTheme()" title="Toggle Light/Dark Mode">
+        <i class="bi bi-brightness-high-fill" id="theme-icon"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<div class="container my-4">
+  {% block content %}{% endblock %}
+</div>
+
+<!-- Footer -->
+<footer class="text-center text-muted my-4">
+  &copy; 2025 Mahendra College of Engineering. All rights reserved.
+</footer>
+{% if not session.get('admin_logged_in') and not session.get('reg_no') %}
+<a class="nav-link" href="{{ url_for('home') }}">Home</a>
+{% endif %}
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Theme Toggle Script -->
+<script>
+  function toggleTheme() {
+    const body = document.body;
+    const icon = document.getElementById('theme-icon');
+
+    if (body.classList.contains('light-mode')) {
+      body.classList.remove('light-mode');
+      body.classList.add('dark-mode');
+      icon.classList.remove('bi-brightness-high-fill');
+      icon.classList.add('bi-moon-fill');
+    } else {
+      body.classList.remove('dark-mode');
+      body.classList.add('light-mode');
+      icon.classList.remove('bi-moon-fill');
+      icon.classList.add('bi-brightness-high-fill');
+    }
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,7 @@
+
+pip install flask
+pip install pandas xlsxwriter
+pip install pandas openpyxl
+pip install flask flask-wtf flask-bootstrap flask-login flask-sqlalchemy pandas openpyxl
+C:\ProgramData\spyder-6\envs\spyder-runtime\python.exe app.py
+py app.py

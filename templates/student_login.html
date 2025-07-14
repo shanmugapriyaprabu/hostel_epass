@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    .login-card {
+        max-width: 500px;
+        margin: 40px auto;
+        background: #fff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    }
+
+    .login-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: maroon;
+        margin-bottom: 25px;
+        text-align: center;
+    }
+
+    .login-table {
+        width: 100%;
+    }
+
+    .login-table td {
+        padding: 12px 8px;
+        vertical-align: middle;
+    }
+
+    .login-table label {
+        font-weight: 600;
+        color: #333;
+    }
+
+    .login-table input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 1rem;
+    }
+
+    .btn-login {
+        background: linear-gradient(to right, maroon, #800000);
+        color: #fff;
+        font-weight: 600;
+        padding: 10px;
+        border: none;
+        border-radius: 8px;
+        width: 100%;
+        margin-top: 20px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn-login:hover {
+        background: linear-gradient(to right, #8B0000, #5b0000);
+        transform: scale(1.03);
+    }
+
+    .error-msg {
+        color: red;
+        text-align: center;
+        font-weight: 500;
+        margin-bottom: 10px;
+    }
+
+    @media (max-width: 576px) {
+        .login-table td {
+            display: block;
+            width: 100%;
+        }
+
+        .login-table tr {
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .login-table label {
+            display: block;
+            margin-bottom: 5px;
+        }
+    }
+</style>
+
+<div class="login-card">
+    <div class="login-title">🎓 Student Login</div>
+
+    {% if error %}
+    <div class="error-msg">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST" action="{{ url_for('student_login') }}">
+        <table class="login-table">
+            <tr>
+                <td><label for="reg_no">Register Number:</label></td>
+                <td><input type="text" name="reg_no" id="reg_no" required></td>
+            </tr>
+            <tr>
+                <td><label for="password">Password:</label></td>
+                <td><input type="password" name="password" id="password" required></td>
+            </tr>
+        </table>
+
+        <button type="submit" class="btn btn-login">🔐 Login</button>
+    </form>
+</div>
+
+{% endblock %}

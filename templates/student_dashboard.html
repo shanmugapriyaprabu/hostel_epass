@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    :root {
+        --main-color: maroon;
+        --text-color: #333;
+        --bg-color: #ffffff;
+    }
+
+    body.dark-mode {
+        --main-color: #ffcccb;
+        --text-color: #eee;
+        --bg-color: #1f1f1f;
+    }
+
+    .dashboard-card {
+        max-width: 750px;
+        margin: 40px auto;
+        padding: 30px;
+        background-color: var(--bg-color);
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        text-align: center;
+        color: var(--text-color);
+    }
+
+    .dashboard-card h2 {
+        font-size: 2rem;
+        font-weight: bold;
+        color: var(--main-color);
+        margin-bottom: 10px;
+    }
+
+    .time-banner {
+        font-size: 1rem;
+        margin-bottom: 20px;
+        font-weight: 500;
+        color: var(--text-color);
+    }
+
+    .student-info {
+        text-align: left;
+        font-size: 1.05rem;
+        margin: 20px 0;
+    }
+
+    .student-info span {
+        font-weight: 600;
+        color: var(--text-color);
+    }
+
+    .dashboard-btn {
+        display: inline-block;
+        margin: 10px;
+        padding: 12px 25px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #fff;
+        background: linear-gradient(to right, maroon, #800000);
+        border: none;
+        border-radius: 10px;
+        text-decoration: none;
+        transition: 0.3s ease;
+    }
+
+    .dashboard-btn:hover {
+        background: linear-gradient(to right, #8B0000, #5b0000);
+        transform: scale(1.03);
+    }
+
+    .toggle-btn {
+        margin-top: 20px;
+        background: none;
+        border: 1px solid var(--main-color);
+        color: var(--main-color);
+        padding: 6px 14px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.9rem;
+    }
+
+    .toggle-btn:hover {
+        background: var(--main-color);
+        color: white;
+    }
+
+    @media (max-width: 576px) {
+        .dashboard-btn {
+            width: 100%;
+        }
+    }
+</style>
+
+<div class="dashboard-card">
+    <h2>🎓 Welcome, {{ student.name }}</h2>
+
+    <div class="time-banner" id="timeBanner"></div>
+
+    <div class="student-info">
+        <p><span>Register Number:</span> {{ student.reg_no }}</p>
+        <p><span>Department:</span> {{ student.department }}</p>
+        <p><span>Year:</span> {{ student.year }}</p>
+        <p><span>Section:</span> {{ student.section }}</p>
+        <p><span>Email:</span> {{ student.email }}</p>
+        <p><span>Student Mobile:</span> {{ student.student_mobile }}</p>
+        <p><span>Parent Mobile:</span> {{ student.parent_mobile }}</p>
+    </div>
+
+    <a href="{{ url_for('apply_epass') }}" class="dashboard-btn">📝 Apply for ePass</a>
+    <a href="{{ url_for('check_status') }}" class="dashboard-btn">📋 Check Application Status</a>
+    <a href="{{ url_for('student_logout') }}" class="dashboard-btn">🔒 Logout</a>
+    <a href="#" class="dashboard-btn" style="background-color: #2e8b57;" onclick="alert('This will link to password change page.')">🔑 Change Password</a>
+
+    <button onclick="toggleDarkMode()" class="toggle-btn">🌓 Toggle Dark Mode</button>
+</div>
+
+<script>
+    // Live clock and date
+    function updateTime() {
+        const now = new Date();
+        const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+        document.getElementById("timeBanner").innerHTML = now.toLocaleDateString(undefined, options) + ' | ' + now.toLocaleTimeString();
+    }
+    setInterval(updateTime, 1000);
+    updateTime();
+
+    // Dark mode toggle
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+    }
+</script>
+
+{% endblock %}

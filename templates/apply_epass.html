@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    .form-wrapper {
+        max-width: 700px;
+        margin: auto;
+        background: #fff;
+        border-radius: 10px;
+        padding: 40px;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .form-title {
+        text-align: center;
+        color: maroon;
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 30px;
+    }
+
+    table.form-table {
+        width: 100%;
+    }
+
+    .form-table td {
+        padding: 12px 10px;
+        vertical-align: middle;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #333;
+        white-space: nowrap;
+        padding-right: 10px;
+    }
+
+    .form-control, .form-select, textarea {
+        width: 100%;
+        border-radius: 6px;
+        padding: 10px;
+    }
+
+    .btn-submit {
+        margin-top: 25px;
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(to right, maroon, #8b0000);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+    .btn-submit:hover {
+        background: linear-gradient(to right, #8b0000, maroon);
+    }
+
+    .hide-section {
+        display: none;
+    }
+</style>
+
+<div class="form-wrapper">
+    <div class="form-title">Apply Hostel ePass</div>
+
+    <form method="POST">
+        <table class="form-table">
+            <tr>
+                <td class="form-label">Room Number</td>
+                <td><input type="text" name="room_no" class="form-control" required></td>
+            </tr>
+
+            <tr>
+                <td class="form-label">Leave Type</td>
+                <td>
+                    <select name="leave_type" id="leave_type" class="form-select" required onchange="toggleFields()">
+                        <option value="" disabled selected>-- Select --</option>
+                        <option value="Outing">Outing</option>
+                        <option value="Leave">Leave</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+
+        <!-- Outing Fields -->
+        <table id="outing_fields" class="form-table hide-section">
+            <tr>
+                <td class="form-label">Outing Date</td>
+                <td><input type="date" name="outing_date" class="form-control"></td>
+            </tr>
+            <tr>
+                <td class="form-label">Outing Time</td>
+                <td><input type="time" name="outing_time" class="form-control"></td>
+            </tr>
+        </table>
+
+        <!-- Leave Fields -->
+        <table id="leave_fields" class="form-table hide-section">
+            <tr>
+                <td class="form-label">Leave From Date</td>
+                <td><input type="date" name="leave_from" class="form-control"></td>
+            </tr>
+            <tr>
+                <td class="form-label">Leave To Date</td>
+                <td><input type="date" name="leave_to" class="form-control"></td>
+            </tr>
+            <tr>
+                <td class="form-label">Total Leave Days</td>
+                <td><input type="number" name="leave_days" class="form-control" min="1"></td>
+            </tr>
+        </table>
+
+        <table class="form-table">
+            <tr>
+                <td class="form-label">Reason</td>
+                <td><textarea name="reason" rows="3" class="form-control" required></textarea></td>
+            </tr>
+        </table>
+
+        <button type="submit" class="btn btn-submit">Submit Application</button>
+    </form>
+</div>
+
+<script>
+    function toggleFields() {
+        const type = document.getElementById("leave_type").value;
+        document.getElementById("outing_fields").style.display = type === "Outing" ? "table" : "none";
+        document.getElementById("leave_fields").style.display = type === "Leave" ? "table" : "none";
+    }
+</script>
+
+{% endblock %}
