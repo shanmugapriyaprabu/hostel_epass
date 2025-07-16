@@ -8,16 +8,6 @@ from werkzeug.utils import secure_filename
 import os
 
 
-app = Flask(__name__)
-
-@app.route('/')
-def home():
-    return render_template('home.html')  # Make sure home.html exists
-
-if __name__ == '__main__':
-    app.run()
-
-
 
 conn = sqlite3.connect('epass.db')
 c = conn.cursor()

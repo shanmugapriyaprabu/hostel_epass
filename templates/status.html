@@ -73,8 +73,6 @@
                 <th>Register No</th>
                 <th>Room No</th>
                 <th>Leave Type</th>
-                <th>Start Date</th>
-                <th>End Date</th>
                 <th>Status</th>
             </tr>
         </thead>
@@ -85,21 +83,7 @@
                 <td>{{ app[2] }}</td> <!-- name -->
                 <td>{{ app[1] }}</td> <!-- reg_no -->
                 <td>{{ app[5] }}</td> <!-- room_no -->
-                <td>{{ app[7] }}</td> <!-- leave_type -->
-                <td>
-                    {% if app[7] == 'Outing' %}
-                        {{ app[8] or '-' }} <!-- outing_date -->
-                    {% else %}
-                        {{ app[9] or '-' }} <!-- leave_from -->
-                    {% endif %}
-                </td>
-                <td>
-                    {% if app[7] == 'Outing' %}
-                        {{ app[8] or '-' }} <!-- outing_date -->
-                    {% else %}
-                        {{ app[10] or '-' }} <!-- leave_to -->
-                    {% endif %}
-                </td>
+                <td>{{ app[6] }}</td> <!-- leave_type -->
                 <td>
                     {% if app[12] == 'Pending' %}
                         <span class="badge badge-pending">Pending</span>
